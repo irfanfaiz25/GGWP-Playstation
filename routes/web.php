@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\TelevisionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+// Dashboard endpoints
+// Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', function () {
+    return view('dashboard.index', [
+        'page' => 'Dashboard'
+    ]);
 });
+
+
+// Management endpoints
+// Route::get('/dashboard/management', [ManagementController::class, 'index']);
+Route::get('/dashboard/transaction', function () {
+    return view('dashboard.transaction', [
+        'page' => 'Transaction'
+    ]);
+});
+
+// Data TV endpoints
+Route::get('/dashboard/data-tv', [TelevisionsController::class, 'index']);
+Route::resource('/dashboard/data-tv', TelevisionsController::class)->except(['create', 'show']);
