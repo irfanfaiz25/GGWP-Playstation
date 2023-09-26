@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Television extends Model
+class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'tarif',
-        'status'
-    ];
+    protected $guarded = ['id'];
+
+// public function menuMakanan() {}
 }

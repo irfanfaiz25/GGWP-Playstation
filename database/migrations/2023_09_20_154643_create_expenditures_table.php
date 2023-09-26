@@ -10,11 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('televisions', function (Blueprint $table) {
+        Schema::create('expenditures', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->integer('tarif');
-            $table->string('status')->nullable();
+            $table->string('tanggal');
+            $table->string('keperluan');
+            $table->integer('harga');
+            $table->integer('jumlah');
+            $table->integer('total');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('televisions');
+        Schema::dropIfExists('expenditures');
     }
 };

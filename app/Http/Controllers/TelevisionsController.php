@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Television;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TelevisionsController extends Controller
@@ -33,12 +34,16 @@ class TelevisionsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:50|unique:televisions',
-            'tarif' => 'required',
-            'kondisi_tv' => 'required',
-            'kondisi_ps' => 'required'
+            'tarif' => 'required'
+        ]);
+
+        $validatedDataTransaction = $request->validate([
+            'name' => 'required|max:50|unique:transactions',
+            'tarif' => 'required'
         ]);
 
         Television::create($validatedData);
+        Transaction::create($validatedDataTransaction);
 
         return redirect('/dashboard/data-tv')->with('success', 'New data television has been added !');
     }
@@ -66,9 +71,7 @@ class TelevisionsController extends Controller
     {
         $data = [
             'name' => 'required|max:50',
-            'tarif' => 'required',
-            'kondisi_tv' => 'required',
-            'kondisi_ps' => 'required'
+            'tarif' => 'required'
         ];
 
         $validatedData = $request->validate($data);

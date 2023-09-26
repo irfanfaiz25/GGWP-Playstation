@@ -38,39 +38,11 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="col-3">
-                            <label for="kondisi_tv" class="col-form-label">Kondisi TV</label>
-                        </div>
-                        <div class="col-9">
-                            <select class="form-select form-select-sm" id="kondisi_tv" name="kondisi_tv">
-                                @if ($television->kondisi_tv == 'baik')
-                                    <option selected value="baik">Baik</option>
-                                    <option value="rusak">Rusak</option>
-                                @else
-                                    <option value="baik">Baik</option>
-                                    <option selected value="rusak">Rusak</option>
-                                @endif
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <label for="kondisi_ps" class="col-form-label">Kondisi PS</label>
-                        </div>
-                        <div class="col-9">
-                            <select class="form-select form-select-sm" id="kondisi_ps" name="kondisi_ps">
-                                @if ($television->kondisi_ps == 'baik')
-                                    <option selected value="baik">Baik</option>
-                                    <option value="rusak">Rusak</option>
-                                @else
-                                    <option value="baik">Baik</option>
-                                    <option selected value="rusak">Rusak</option>
-                                @endif
-                            </select>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success btn-sm">Update</button>
                 </div>
             </div>
         </div>
@@ -79,7 +51,7 @@
 {{-- end edit modal --}}
 
 {{-- delete confirmation modal --}}
-<div id="deleteModal" class="modal fade" tabindex="	-1">
+<div id="deleteModal{{ $television->id }}" class="modal fade" tabindex="	-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -96,11 +68,11 @@
                         <form action="/dashboard/data-tv/{{ $television->id }}" method="post">
                             @method('delete')
                             @csrf
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal"><i
                                     class="fa-regular fa-circle-xmark"></i>
                                 CANCEL
                             </button>
-                            <button type="submit" class="btn btn-success" name="delete-sample"><i
+                            <button type="submit" class="btn btn-success btn-sm" name="delete-sample"><i
                                     class="fa-regular fa-circle-check"></i>
                                 YES
                             </button>

@@ -10,11 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('televisions', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->integer('tarif');
-            $table->string('status')->nullable();
+            $table->string('user')->nullable();
+            $table->string('jam_mulai')->nullable()->default('00:00');
+            $table->string('jam_selesai')->nullable()->default('00:00');
+            $table->string('lama_main')->nullable();
+            $table->integer('total_harga')->nullable()->default(0);
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('televisions');
+        Schema::dropIfExists('transactions');
     }
 };

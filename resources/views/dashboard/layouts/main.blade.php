@@ -17,9 +17,6 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-    {{-- link jquery --}}
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-
     {{-- link css --}}
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 
@@ -33,6 +30,46 @@
         @include('dashboard.partials.sidebar')
 
         <section id="content-wrapper">
+            @if (session()->has('success'))
+                <div class="toast-container position-fixed top-0 end-0 p-3">
+
+                    <!-- Then put toasts within -->
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-ijo text-light">
+                            {{-- <img src="" class="rounded me-2" alt="..."> --}}
+                            <i class="fa fa-circle-info me-2"></i>
+                            <strong class="me-auto">GGWP Gaming</strong>
+                            <small>Just Now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+
+                </div>
+            @endif
+            @if (session()->has('error'))
+                <div class="toast-container position-fixed top-0 end-0 p-3">
+
+                    <!-- Then put toasts within -->
+                    <div class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-red text-light">
+                            {{-- <img src="" class="rounded me-2" alt="..."> --}}
+                            <i class="fa fa-circle-info me-2"></i>
+                            <strong class="me-auto">GGWP Gaming</strong>
+                            <small>Just Now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            {{ session('error') }}
+                        </div>
+                    </div>
+
+                </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     @yield('container')
@@ -42,15 +79,19 @@
 
     </div>
 
-    {{-- link js --}}
-    <script src="{{ asset('/js/main.js') }}"></script>
+    {{-- page loader --}}
+    <div class="loader-wrapper">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-    </script>
+    @include('dashboard.partials.script')
 
 </body>
 

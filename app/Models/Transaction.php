@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Television extends Model
+class Transaction extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
         'tarif',
-        'status'
+        'user',
+        'jam_mulai',
+        'jam_selesai',
+        'lama_main',
+        'total_harga'
     ];
 }
