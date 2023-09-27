@@ -75,7 +75,8 @@ class TransactionController extends Controller
 
     public function updateStartPlay(Request $request)
     {
-        $jam_mulai = date("Y-m-d ") . $request->jam_mulai;
+        $tanggal = $request->tanggal;
+        $jam_mulai = $tanggal . ' ' . $request->jam_mulai;
 
         if ($request->get('id')) {
             $transaction = Transaction::find($request->get('id'));
@@ -86,6 +87,22 @@ class TransactionController extends Controller
         }
 
         return redirect('/dashboard/transaction');
+    }
+
+    public function updateTrans(Request $request)
+    {
+        $tanggal = $request->tanggal;
+        $jam_mulai = $tanggal . ' ' . $request->jam_mulai;
+
+        if ($request->get('id')) {
+            Transaction::find($request->get('id'))
+                ->update([
+                    'user' => $request->user,
+                    'jam_mulai' => $jam_mulai
+                ]);
+        }
+
+        return redirect('/dashboard/transaction')->with('success', 'Data berhasil diedit.');
     }
 
     public function updateEndPlay(Request $request)
@@ -250,6 +267,22 @@ class TransactionController extends Controller
         }
 
         return redirect('/dashboard/transaction');
+    }
+
+    public function resetTv(Request $request)
+    {
+        if ($request->get('id')) {
+            Transaction::find($request->get('id'))
+                ->update([
+                    'user' => NULL,
+                    'jam_mulai' => '00:00',
+                    'jam_selesai' => '00:00',
+                    'lama_main' => NULL,
+                    'total_harga' => 0
+                ]);
+        }
+
+        return redirect('dashboard/transaction')->with('success', 'TV berhasil di reset');
     }
 
     /**

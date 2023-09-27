@@ -1,38 +1,57 @@
-<aside id="sidebar-wrapper">
-    <div class="sidebar-brand">
-        <img src="{{ asset('/img/logo-ps.png') }}" height="50" class="img-logo" alt="logo-ps">
+<header class="header" id="header_sidebar">
+    <div class="header_toggle">
+        <i class='bx bx-menu' id="toggle_sidebar"></i>
     </div>
-    <ul class="sidebar-nav">
-        <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
-            <a href="/dashboard"><i class="fa fa-home"></i>Dashboard</a>
-        </li>
-        <li class="{{ Request::is('dashboard/transaction*') ? 'active' : '' }}">
-            <a href="/dashboard/transaction"><i class="fa fa-brands fa-playstation"></i>Transaction</a>
-        </li>
-        <li class="{{ Request::is('dashboard/data-tv') ? 'active' : '' }}">
-            <a href="/dashboard/data-tv"><i class="fa fa-tv"></i>Data TV</a>
-        </li>
-        <li class="{{ Request::is('dashboard/data-menu') ? 'active' : '' }}">
-            <a href="/dashboard/data-menu"><i class="fa fa-utensils"></i>Data Menu</a>
-        </li>
-        <li class="{{ Request::is('dashboard/data-finance*') ? 'active' : '' }}">
-            <a href="/dashboard/data-finance"><i class="fa fa-scale-unbalanced"></i>Management</a>
-        </li>
-    </ul>
-    <ul class="sidebar-nav sidebar-bottom">
-        <li>
-            <a href="/logout"><i class="fa fa-right-from-bracket"></i>Logout</a>
-        </li>
-    </ul>
-</aside>
+    <span class="d-block justify-content-start text-light">
+        <h5>{{ $page }}</h5>
+    </span>
+    <div class="d-flex">
+        <img class="header_img" src="{{ asset('img/user.png') }}" alt="">
+        <span class="text-light mt-2 ms-2">Hi, Yoan !</span>
+    </div>
 
-<div id="navbar-wrapper">
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header d-flex">
-                <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
-                <h4 class="mt-1">{{ $page }}</h4>
+</header>
+<div class="l-navbar" id="nav_sidebar">
+    <nav class="nav">
+        <div>
+            <a href="#" class="nav_logo">
+                {{-- <i class='bx bx-layer nav_logo-icon'></i> --}}
+                <img src="{{ asset('img/logo_stick.png') }}" alt="logo" height="25">
+                <span class="nav_logo-name">GGWP GAMING</span>
+            </a>
+            <div class="nav_list">
+                <a href="/dashboard" class="nav_link {{ Request::is('dashboard') ? 'active' : '' }}">
+                    <i class='bx bx-grid-alt nav_icon'></i>
+                    <span class="nav_name">Dashboard</span>
+                </a>
+                <a href="/dashboard/transaction"
+                    class="nav_link {{ Request::is('dashboard/transaction*') ? 'active' : '' }}">
+                    <i class='fa-brands fa-playstation nav_icon'></i>
+                    <span class="nav_name">Transaksi</span>
+                </a>
+                <a href="/dashboard/data-tv" class="nav_link {{ Request::is('dashboard/data-tv') ? 'active' : '' }}">
+                    <i class='fa fa-television nav_icon'></i>
+                    <span class="nav_name">Data TV</span>
+                </a>
+                <a href="/dashboard/data-menu"
+                    class="nav_link {{ Request::is('dashboard/data-menu') ? 'active' : '' }}">
+                    <i class='fa fa-utensils nav_icon'></i>
+                    <span class="nav_name">Data Menu</span>
+                </a>
+                <a href="/dashboard/data-finance"
+                    class="nav_link {{ Request::is('dashboard/data-finance*') ? 'active' : '' }}">
+                    <i class='fa fa-scale-unbalanced nav_icon'></i>
+                    <span class="nav_name">Management</span>
+                </a>
+                {{-- <a href="#" class="nav_link">
+                    <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
+                    <span class="nav_name">Stats</span>
+                </a> --}}
             </div>
         </div>
+        <a href="#" class="nav_link">
+            <i class='bx bx-log-out nav_icon'></i>
+            <span class="nav_name">Sign Out</span>
+        </a>
     </nav>
 </div>

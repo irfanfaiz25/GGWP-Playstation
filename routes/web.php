@@ -43,6 +43,8 @@ Route::post('/dashboard/transaction/start/', [TransactionController::class, 'upd
 Route::post('/dashboard/transaction/end', [TransactionController::class, 'updateEndPlay'])->name('updateEndPlay');
 Route::post('/dashboard/transaction/tambahan', [TransactionController::class, 'menuTambahan'])->name('menuTambahan');
 Route::post('/dashboard/transaction/pay', [TransactionController::class, 'paymentUpdate'])->name('paymentUpdate');
+Route::post('/dashboard/transaction/reset', [TransactionController::class, 'resetTv']);
+Route::post('/dashboard/transaction/edit-trans', [TransactionController::class, 'updateTrans']);
 
 
 // Data TV endpoints

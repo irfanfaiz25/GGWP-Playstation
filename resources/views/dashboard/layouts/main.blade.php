@@ -21,63 +21,58 @@
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 
     <title>Rental PS</title>
+
+    <style>
+
+    </style>
 </head>
 
-<body>
+<body id="bodyId">
 
-    <div id="wrapper">
+    @include('dashboard.partials.sidebar')
 
-        @include('dashboard.partials.sidebar')
+    <div class="height-100 bg-light wrap">
+        @if (session()->has('success'))
+            <div class="toast-container position-fixed top-0 end-0 p-3">
 
-        <section id="content-wrapper">
-            @if (session()->has('success'))
-                <div class="toast-container position-fixed top-0 end-0 p-3">
-
-                    <!-- Then put toasts within -->
-                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header bg-ijo text-light">
-                            {{-- <img src="" class="rounded me-2" alt="..."> --}}
-                            <i class="fa fa-circle-info me-2"></i>
-                            <strong class="me-auto">GGWP Gaming</strong>
-                            <small>Just Now</small>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            {{ session('success') }}
-                        </div>
+                <!-- Then put toasts within -->
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-ijo text-light">
+                        {{-- <img src="" class="rounded me-2" alt="..."> --}}
+                        <i class="fa fa-circle-info me-2"></i>
+                        <strong class="me-auto">GGWP Gaming</strong>
+                        <small>Just Now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
-
-                </div>
-            @endif
-            @if (session()->has('error'))
-                <div class="toast-container position-fixed top-0 end-0 p-3">
-
-                    <!-- Then put toasts within -->
-                    <div class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header bg-red text-light">
-                            {{-- <img src="" class="rounded me-2" alt="..."> --}}
-                            <i class="fa fa-circle-info me-2"></i>
-                            <strong class="me-auto">GGWP Gaming</strong>
-                            <small>Just Now</small>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            {{ session('error') }}
-                        </div>
+                    <div class="toast-body">
+                        {{ session('success') }}
                     </div>
+                </div>
 
-                </div>
-            @endif
-            <div class="row">
-                <div class="col-lg-12">
-                    @yield('container')
-                </div>
             </div>
-        </section>
+        @endif
+        @if (session()->has('error'))
+            <div class="toast-container position-fixed top-0 end-0 p-3">
 
+                <!-- Then put toasts within -->
+                <div class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-red text-light">
+                        {{-- <img src="" class="rounded me-2" alt="..."> --}}
+                        <i class="fa fa-circle-info me-2"></i>
+                        <strong class="me-auto">GGWP Gaming</strong>
+                        <small>Just Now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        {{ session('error') }}
+                    </div>
+                </div>
+
+            </div>
+        @endif
+        @yield('container')
     </div>
+
 
     {{-- page loader --}}
     <div class="loader-wrapper">

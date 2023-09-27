@@ -20,7 +20,9 @@
                                             <div class="card transaction-card">
                                     @endif
                                     <div class="content">
-                                        <div class="title mb-2">{{ $transaction->name }}</div>
+                                        <div class="title mb-2">
+                                            {{ $transaction->name }}
+                                        </div>
                                         <div class="price mb-3">
                                             <span class="fa fa-television"></span>
                                         </div>
@@ -59,16 +61,32 @@
                                                 @endempty>
                                                 End
                                             </button>
-                                            {{-- <div class="dropup">
-                                                <button class="button dropbtn" data-bs-toggle="dropdown">
-                                                    Timer
+                                            {{-- <button class="button" data-bs-toggle="modal"
+                                                data-bs-target="#editTrans{{ $transaction->id }}"
+                                                @empty($transaction->user)
+                                                    disabled
+                                                @endempty>
+                                                Edit
+                                            </button> --}}
+                                            <div class="dropup">
+                                                <button class="button dropbtn" data-bs-toggle="dropdown"
+                                                    @empty($transaction->user)
+                                                    disabled
+                                                @endempty>
+                                                    Option
                                                 </button>
-                                                <div class="dropup-content">
-                                                    <a href="#">30 Minute</a>
-                                                    <a href="#">60 Minute</a>
-                                                    <a href="#">90 Minute</a>
-                                                </div>
-                                            </div> --}}
+                                                @isset($transaction->user)
+                                                    <div class="dropup-content">
+                                                        <a href="" data-bs-toggle="modal"
+                                                            data-bs-target="#editTrans{{ $transaction->id }}">
+                                                            <i class="fa fa-pencil"></i> Edit
+                                                        </a>
+                                                        <a href="" data-bs-toggle="modal"
+                                                            data-bs-target="#resetModal{{ $transaction->id }}"><i
+                                                                class="fa fa-rotate"></i> Reset</a>
+                                                    </div>
+                                                @endisset
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -103,11 +121,24 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-3">
+                                                    <label for="tanggal" class="col-form-label">Tanggal</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="date" id="tanggal" name="tanggal"
+                                                        class="form-control form-control-sm @error('tanggal') is-invalid @enderror"
+                                                        value="{{ date('Y-m-d') }}">
+                                                    @error('tanggal')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-3">
                                                     <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
                                                 </div>
                                                 <div class="col-9">
                                                     <input type="time" id="jam_mulai" name="jam_mulai"
-                                                        class="form-control form-control-sm">
+                                                        class="form-control form-control-sm" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -119,6 +150,67 @@
                             </div>
                         </div>
                         {{-- end modal start --}}
+
+                        {{-- modal edit transaction --}}
+                        <div class="modal fade" id="editTrans{{ $transaction->id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Start
+                                            {{ $transaction->name }}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/dashboard/transaction/edit-trans" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $transaction->id }}">
+                                            <div class="row g-3 align-items-center ms-3 me-3">
+                                                <div class="col-3">
+                                                    <label for="user" class="col-form-label">User</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" id="user" name="user"
+                                                        class="form-control form-control-sm @error('user') is-invalid @enderror"
+                                                        value="{{ $transaction->user }}">
+                                                    @error('user')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-3">
+                                                    <label for="tanggal" class="col-form-label">Tanggal</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="date" id="tanggal" name="tanggal"
+                                                        class="form-control form-control-sm @error('tanggal') is-invalid @enderror"
+                                                        value="{{ date('Y-m-d', strtotime($transaction->jam_mulai)) }}">
+                                                    @error('tanggal')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-3">
+                                                    <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="time" id="jam_mulai" name="jam_mulai"
+                                                        class="form-control form-control-sm"
+                                                        value="{{ date('H:i', strtotime($transaction->jam_mulai)) }}"
+                                                        required>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end modal edit transaction --}}
 
                         {{-- End confirmation modal --}}
                         <div id="deleteModal{{ $transaction->id }}" class="modal fade" tabindex="	-1">
@@ -134,17 +226,18 @@
                                         <div class="row">
                                             <div class="col-md-12 text-center text-secondary">
                                                 <h2>ARE YOU SURE ?</h2>
-                                                <h6 class="pb-5">Do you want to stop {{ $transaction->name }} ?
+                                                <h6 class="pb-5">Do you want to stop and reset {{ $transaction->name }}
+                                                    ?
                                                 </h6>
                                                 <form action="/dashboard/transaction/end" method="post">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $transaction->id }}">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i
-                                                            class="fa-regular fa-circle-xmark"></i>
+                                                    <button type="button" class="btn btn-danger"
+                                                        data-bs-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i>
                                                         CANCEL
                                                     </button>
-                                                    <button type="submit" class="btn btn-success" name="delete-sample"><i
-                                                            class="fa-regular fa-circle-check"></i>
+                                                    <button type="submit" class="btn btn-success"
+                                                        name="delete-sample"><i class="fa-regular fa-circle-check"></i>
                                                         YES
                                                     </button>
                                                 </form>
@@ -155,6 +248,43 @@
                             </div>
                         </div>
                         {{-- end End confirmation modal --}}
+
+                        {{-- Reset confirmation modal --}}
+                        <div id="resetModal{{ $transaction->id }}" class="modal fade" tabindex="	-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center pb-5 pt-4">
+                                                <img src="{{ asset('/img/waning-logo.png') }}" alt="finish"
+                                                    width="200">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center text-secondary">
+                                                <h2>ARE YOU SURE ?</h2>
+                                                <h6 class="pb-5">Do you want to stop and reset {{ $transaction->name }}
+                                                    ?
+                                                </h6>
+                                                <form action="/dashboard/transaction/reset" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $transaction->id }}">
+                                                    <button type="button" class="btn btn-danger"
+                                                        data-bs-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i>
+                                                        CANCEL
+                                                    </button>
+                                                    <button type="submit" class="btn btn-success"
+                                                        name="delete-sample"><i class="fa-regular fa-circle-check"></i>
+                                                        YES
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end Reset confirmation modal --}}
                         @endforeach
 
                     </div>
@@ -242,7 +372,8 @@
                                                 </td>
                                                 <td width="110">
                                                     <div class="d-grid">
-                                                        <button type="submit" id="pay-btn" class="btn btn-success btn-sm">
+                                                        <button type="submit" id="pay-btn"
+                                                            class="btn btn-success btn-sm">
                                                             <i class="fa fa-coins"></i> Pay</button>
                                                     </div>
                                                 </td>

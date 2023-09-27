@@ -97,7 +97,7 @@ class ExpenditureController extends Controller
             ->update($validatedData);
 
         $return_value = [
-            'success' => 'Data pengeluaran berhasil dihapus.',
+            'success' => 'Data pengeluaran berhasil diedit.',
             'expend' => true
         ];
 
